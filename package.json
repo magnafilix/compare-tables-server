@@ -1,0 +1,32 @@
+{
+  "name": "compare-tables-server",
+  "version": "1.0.0",
+  "description": "simple CRUD API for https://github.com/magnafilix/compare-tables",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/magnafilix/compare-tables-server.git"
+  },
+  "author": "magnafilix",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/magnafilix/compare-tables-server/issues"
+  },
+  "homepage": "https://github.com/magnafilix/compare-tables-server#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "chalk": "^2.4.2",
+    "cors": "^2.8.5",
+    "dotenv": "^8.1.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.6.11",
+    "nodemon": "^1.19.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.3.0"
+  }
+}
