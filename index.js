@@ -5,6 +5,8 @@ const chalk = require('chalk')
 
 require('dotenv').config()
 
+module.exports = require('redis').createClient(6379, 'localhost')
+
 const routes = require('./routes')
 
 const app = express()

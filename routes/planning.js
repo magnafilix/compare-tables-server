@@ -16,6 +16,13 @@ module.exports = router => {
     .get(planningCtrl.readAll)
 
   /**
+   * READ planning by id
+   */
+  router
+    .route('/planning/:id')
+    .get(planningCtrl.readOne)
+
+  /**
    * UPDATE planning by id
    */
   router

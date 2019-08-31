@@ -9,6 +9,8 @@ const {
   InternalServerError
 } = require('../constants/httpResponses')
 
+const redis = require('../index')
+
 module.exports = {
   createOne: async (req, res) => {
     try {
@@ -39,6 +41,30 @@ module.exports = {
     .find()
     .then(plannings => res.status(OK.code).send(plannings))
     .catch(err => res.status(NotFound.code).send(err.message || NotFound.message)),
+
+  readOne: (req, res) => {
+    const { id } = req.params
+
+    return redis.get(id, (err, cached) => {
+      if (err)
+        return res
+          .status(InternalServerError.code)
+          .send(err.message || InternalServerError.message)
+
+      if (cached)
+        return res
+          .status(OK.code)
+          .send(JSON.parse(cached))
+
+      return Planning
+        .findById(id)
+        .then(planning => {
+          redis.set(id, JSON.stringify(planning), 'EX', 30)
+          return res.status(OK.code).send(planning)
+        })
+        .catch(error => res.status(NotFound.code).send(error.message || NotFound.message))
+    })
+  },
 
   updateOne: (req, res) => { },
 
