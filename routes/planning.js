@@ -1,12 +1,13 @@
 const planningCtrl = require('../controllers/planning')
 const { cache, validate } = require('../helpers/middlewares')
+const { schemas } = require('../services/validationSchemas')
 
 module.exports = router => {
   /**
    * CREATE planning
    */
   router
-    .post('/planning', validate, planningCtrl.createOne)
+    .post('/planning', validate(schemas.planningPost), planningCtrl.createOne)
 
   /**
    * READ all plannings

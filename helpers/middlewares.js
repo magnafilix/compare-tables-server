@@ -1,5 +1,5 @@
 const Cache = require('../services/cache')
-const { schemas, joiValidate } = require('../services/validationSchemas')
+const { joiValidate } = require('../services/validationSchemas')
 
 const {
   BadRequest,
@@ -22,9 +22,9 @@ module.exports = {
       .catch(err => res.status(NotFound.code).send(err.message || NotFound.message))
   },
 
-  validate: (req, res, next) => {
+  validate: schema => (req, res, next) => {
     const { body } = req
-    const { error } = joiValidate(body, schemas.planningPost)
+    const { error } = joiValidate(body, schema)
 
     if (error)
       return res
