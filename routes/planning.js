@@ -1,40 +1,34 @@
 const planningCtrl = require('../controllers/planning')
-const { cache } = require('../helpers/middlewares')
+const { cache, validate } = require('../helpers/middlewares')
 
 module.exports = router => {
   /**
    * CREATE planning
    */
   router
-    .route('/planning')
-    .post(planningCtrl.createOne)
+    .post('/planning', validate, planningCtrl.createOne)
 
   /**
    * READ all plannings
    */
   router
-    .route('/planning/all')
-    .get(planningCtrl.readAll)
+    .get('/planning/all', planningCtrl.readAll)
 
   /**
    * READ planning by id
    */
   router
-    .route('/planning/:id')
-    .all(cache)
-    .get(planningCtrl.readOne)
+    .get('/planning/:id', cache, planningCtrl.readOne)
 
   /**
    * UPDATE planning by id
    */
   router
-    .route('/planning/:id')
-    .patch(planningCtrl.updateOne)
+    .patch('/planning/:id', cache, planningCtrl.updateOne)
 
   /**
    * DELETE planning by id
    */
   router
-    .route('/planning/:id')
-    .delete(planningCtrl.deleteOne)
+    .delete('/planning/:id', cache, planningCtrl.deleteOne)
 }

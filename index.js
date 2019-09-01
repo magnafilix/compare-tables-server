@@ -13,7 +13,7 @@ const routes = require('./routes')
 const app = express()
 const router = express.Router()
 
-const connectToDatabase = require('./helpers/db')
+const connectToDatabase = require('./services/db')
 connectToDatabase()
 
 routes(router)
@@ -27,11 +27,9 @@ app.use('/', router)
 
 app.use('*', (err, req, res, next) => {
   err.status = err.status || 500
-  res.status(err.status)
-
-  const message = err.message || 'Internal Server Error'
-
-  res.send({ status: err.status, message })
+  res
+    .status(err.status)
+    .send(err.message || 'Internal Server Error')
 })
 
 app.listen(PORT, () => console.log(`${chalk.blue('Compare Tables')} is listening on port: ${PORT}`))
