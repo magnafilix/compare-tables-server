@@ -1,7 +1,7 @@
 const Cache = require('../services/cache')
 
 module.exports = {
-  cache: async (req, res, next) => {
+  cache: (req, res, next) => {
     const { id } = req.params
 
     Cache
