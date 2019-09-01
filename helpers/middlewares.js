@@ -1,16 +1,15 @@
-const redis = require('../index')
+const Cache = require('../services/cache')
 
 module.exports = {
-  cache: (req, res, next) => {
+  cache: async (req, res, next) => {
     const { id } = req.params
 
-    return redis.get(id, (err, cached) => {
-      if (err)
-        return next(err)
-
-      if (cached)
+    Cache
+      .get(id)
+      .then(cached => {
         req.cached = cached
-      next()
-    })
+        next()
+      })
+      .catch(err => next(err))
   }
 }

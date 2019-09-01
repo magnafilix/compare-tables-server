@@ -9,8 +9,7 @@ const {
   InternalServerError
 } = require('../constants/httpResponses')
 
-const redis = require('../index')
-const ttl = 60 * 60 * 1 // cache for 1 Hour
+const Cache = require('../services/cache')
 
 module.exports = {
   createOne: async (req, res) => {
@@ -44,7 +43,7 @@ module.exports = {
     .catch(err => res.status(NotFound.code).send(err.message || NotFound.message)),
 
   readOne: (req, res) => {
-    const { cached = null, params: { id } } = req
+    const { cached = null, params: { id = '' } } = req
 
     if (cached)
       return res
@@ -54,7 +53,7 @@ module.exports = {
     return Planning
       .findById(id)
       .then(planning => {
-        redis.setex(id, ttl, JSON.stringify(planning))
+        Cache.set(id, planning)
         return res.status(OK.code).send(planning)
       })
       .catch(error => res.status(NotFound.code).send(error.message || NotFound.message))
@@ -63,12 +62,9 @@ module.exports = {
   updateOne: (req, res) => { },
 
   deleteOne: (req, res) => {
-    const { id = '' } = req.params
+    const { cached = null, params: { id = '' } } = req
 
-    if (!id)
-      return res
-        .status(BadRequest.code)
-        .send(BadRequest.message)
+    if (cached) Cache.delete(id)
 
     return Planning
       .findByIdAndRemove({ _id: id })
