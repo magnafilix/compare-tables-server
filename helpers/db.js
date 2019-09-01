@@ -9,7 +9,11 @@ const termination = chalk.bold.magenta
 const mc = 'MongoDB connection'
 
 module.exports = () => {
-  mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, useCreateIndex: true })
+  mongoose.connect(process.env.DATABASE_URL, {
+    useFindAndModify: false,
+    useNewUrlParser: true,
+    useCreateIndex: true
+  })
 
   mongoose.connection
     .on('connected', () => console.log(connected(`${mc} is open`)))

@@ -1,11 +1,12 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const redis = require('redis')
 const chalk = require('chalk')
 
 require('dotenv').config()
 
-module.exports = require('redis').createClient(6379, 'localhost')
+module.exports = redis.createClient()
 
 const routes = require('./routes')
 

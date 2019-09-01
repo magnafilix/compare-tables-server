@@ -1,4 +1,5 @@
 const planningCtrl = require('../controllers/planning')
+const { cache } = require('../helpers/middlewares')
 
 module.exports = router => {
   /**
@@ -20,6 +21,7 @@ module.exports = router => {
    */
   router
     .route('/planning/:id')
+    .all(cache)
     .get(planningCtrl.readOne)
 
   /**
