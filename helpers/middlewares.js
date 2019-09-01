@@ -29,7 +29,7 @@ module.exports = {
     if (error)
       return res
         .status(BadRequest.code)
-        .send(error.details || BadRequest.message)
+        .send(error.details.map(d => d.message).join(', ') || BadRequest.message)
 
     next()
   }
