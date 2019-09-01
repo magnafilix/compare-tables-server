@@ -43,12 +43,7 @@ module.exports = {
     .catch(err => res.status(NotFound.code).send(err.message || NotFound.message)),
 
   readOne: (req, res) => {
-    const { cached = null, params: { id = '' } } = req
-
-    if (cached)
-      return res
-        .status(OK.code)
-        .send(JSON.parse(cached))
+    const { params: { id = '' } } = req
 
     return Planning
       .findById(id)
