@@ -1,4 +1,5 @@
 const Planning = require('../models/planning')
+const Cache = require('../services/cache')
 const {
   OK,
   Created,
@@ -9,8 +10,6 @@ const {
   InternalServerError
 } = require('../constants/httpResponses')
 
-const Cache = require('../services/cache')
-
 module.exports = {
   createOne: async (req, res) => {
     try {
@@ -20,12 +19,11 @@ module.exports = {
         planningSupply = []
       } = req.body
 
-      if (!planningName || !planningDemand.length || !planningSupply.length)
-        return res.status(BadRequest.code).send(BadRequest.message)
-
-      const existingPlanning = await Planning.findOne({ planningName })
-      if (existingPlanning)
-        return res.status(UnprocessableEntity.code).send(UnprocessableEntity.message)
+      const planningExists = await Planning.findOne({ planningName })
+      if (planningExists)
+        return res
+          .status(UnprocessableEntity.code)
+          .send(UnprocessableEntity.message)
 
       return Planning
         .create({ planningName, planningDemand, planningSupply })
@@ -33,7 +31,9 @@ module.exports = {
         .catch(err => res.status(InternalServerError.code).send(err.message || InternalServerError.message))
 
     } catch (err) {
-      throw new Error(err)
+      res
+        .status(InternalServerError.code)
+        .send(err.message || InternalServerError.message)
     }
   },
 
@@ -54,6 +54,7 @@ module.exports = {
       .catch(error => res.status(NotFound.code).send(error.message || NotFound.message))
   },
 
+  // TODO - Add Update Logic, include Redis update
   updateOne: (req, res) => { },
 
   deleteOne: (req, res) => {
