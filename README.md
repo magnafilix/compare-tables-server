@@ -1,5 +1,5 @@
 # compare-tables-server
-simple CR_D API for [client](https://github.com/magnafilix/compare-tables)
+Simple CR_D API for [client](https://github.com/magnafilix/compare-tables)
 
 ## Getting Started
 
@@ -8,7 +8,8 @@ These instructions will get you a copy of the project up and running on your loc
 ### Prerequisites
 
 ```
-Node.js - version 10+
+MongoDB
+Node.js
 Redis
 ```
 
@@ -29,7 +30,7 @@ Intialize the project installing the dependencies
 npm install
 ```
 
-* [Install](https://redis.io/download) and start Redis server on your machine first, then start the project
+[Install](https://redis.io/download) and start Redis server on your machine first, then start the project
 ```
 npm start
 ```
@@ -41,9 +42,9 @@ Congrats!
 
 ## Built With
 
-* [Node.js](https://nodejs.org/en/) - Back-end ecosystem
 * [MongoDB](https://www.mongodb.com/) - The most popular NoSQL database for modern apps
-* [Redis](https://redis.io/) - Open source (BSD licensed), in-memory data structure store, used as a database, cache and message broker.
+* [Node.js](https://nodejs.org/en/) - Back-end ecosystem
+* [Redis](https://redis.io/) - Open source (BSD licensed), in-memory data structure store, used as a database, cache and message broker
 
 ## Authors
 
