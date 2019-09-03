@@ -3,8 +3,7 @@ Simple CR_D API for [client](https://github.com/magnafilix/compare-tables)
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development. See deployment for notes on how to deploy the project on a live system.
-
+These instructions will get you a copy of the project up and running on your local machine for development.
 ### Prerequisites
 
 ```
@@ -29,6 +28,8 @@ Intialize the project installing the dependencies
 ```
 npm install
 ```
+
+Add and configure `.env` file, using file example `.envexample` 
 
 [Install](https://redis.io/download) and start Redis server on your machine first, then start the project
 ```
