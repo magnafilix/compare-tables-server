@@ -1,2 +1,2 @@
 # compare-tables-server
-simple CRUD API for [client](https://github.com/magnafilix/compare-tables)
+simple CR_D API for [client](https://github.com/magnafilix/compare-tables)
